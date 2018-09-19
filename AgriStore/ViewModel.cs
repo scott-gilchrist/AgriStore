@@ -10,8 +10,24 @@ namespace AgriStoreLogic
     {
         static List<Cow> cowList = new List<Cow>();
 
+        //Help menu
+        //Help menu method
+        public static void HelpMenu()
+        {
+            Console.WriteLine("------------------------------------------------");
+            Console.WriteLine("Address book usage:");
+            Console.WriteLine("add    - Add a person to the address book.");
+            Console.WriteLine("remove - Remove a person from the address book.");
+            Console.WriteLine("list   - List all people in address book.");
+            Console.WriteLine("exit   - Exit the program.");
+            Console.WriteLine("------------------------------------------------");
+
+            Console.Write("\nPress any key to continue.");
+            Console.ReadKey();
+        }
+
         // Add a new cow to the list (update to use for any kind of animal)
-        public static void addCow()
+        public static void addToList()
         {
 
             string tempinput, inputName;
@@ -38,19 +54,49 @@ namespace AgriStoreLogic
 
         }
 
+        private static void ViewElement(Cow cow)
+        {
+            Console.WriteLine("\n############################");
+            Console.WriteLine($"#   Name: {cow.Name}");
+            Console.WriteLine($"#   Age: {cow.Age}");
+            Console.WriteLine($"#   Weight: {cow.Weight}");
+            Console.WriteLine($"#   ID: {cow.Id}");
+            Console.WriteLine("############################\n");
+        }
+
         public static void viewList()
         {
 
             foreach (Cow c in cowList)
             {
-                Console.WriteLine("\n############################");
-                Console.WriteLine($"#   Name: {c.Name}");
-                Console.WriteLine($"#   Age: {c.Age}");
-                Console.WriteLine($"#   Weight: {c.Weight}");
-                Console.WriteLine($"#   ID: {c.Id}");
-                Console.WriteLine("############################\n");
+                ViewElement(c);
             }
 
+        }
+
+        // Remove element from list
+        public static void removeFromList()
+        {
+            Console.WriteLine("Enter the name of the person you would like to remove.");
+            string firstName = Console.ReadLine();
+            Cow person = cowList.FirstOrDefault(x => x.Name.ToLower() == firstName.ToLower());
+
+            if (person == null)
+            {
+                Console.WriteLine("That person could not be found. Press any key to continue.");
+                Console.ReadKey();
+                return;
+            }
+
+            Console.WriteLine("Are you sure you want to remove this person from your address book? (Y/N)");
+            ViewElement(person);
+            
+            if (Console.ReadKey().Key == ConsoleKey.Y)
+            {
+                cowList.Remove(person);
+                Console.Write("\nPerson removed. Press any key to continue.");
+                Console.ReadKey();
+            }
         }
 
     }

@@ -23,10 +23,16 @@ namespace AgriStoreLogic
                 switch (userInput.ToLower())
                 {
                     case "add":
-                        ViewModel.addCow();
+                        ViewModel.addToList();
                         break;
                     case "view":
                         ViewModel.viewList();
+                        break;
+                    case "remove":
+                        ViewModel.removeFromList();
+                        break;
+                    case "help":
+                        ViewModel.HelpMenu();
                         break;
                     default:
                         Console.WriteLine("Unknown option");
