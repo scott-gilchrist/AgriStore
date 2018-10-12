@@ -16,7 +16,7 @@ namespace AgriStoreLogic
 
             while (userInput != "exit")
             {
-                Console.Write("Enter a command (add, remove, view, exit): ");
+                Console.Write("Enter a command (add, remove, view, save, exit): ");
                 userInput = Console.ReadLine();
 
                 // Switch for the action to be performed on the list
@@ -33,6 +33,9 @@ namespace AgriStoreLogic
                         break;
                     case "help":
                         ViewModel.HelpMenu();
+                        break;
+                    case "save":
+                        ViewModel.saveList();
                         break;
                     default:
                         Console.WriteLine("Unknown option");

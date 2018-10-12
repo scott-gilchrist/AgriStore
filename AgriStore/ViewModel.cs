@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace AgriStoreLogic
 {
@@ -96,6 +98,16 @@ namespace AgriStoreLogic
                 cowList.Remove(person);
                 Console.Write("\nPerson removed. Press any key to continue.");
                 Console.ReadKey();
+            }
+        }
+
+        public static void saveList()
+        {
+            using (StreamWriter file = File.CreateText(@"agristore.txt"))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                // Serialize object directly into file stream
+                serializer.Serialize(file, cowList);
             }
         }
 
