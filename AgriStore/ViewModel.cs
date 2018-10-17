@@ -17,9 +17,9 @@ namespace AgriStoreLogic
         public static void HelpMenu()
         {
             Console.WriteLine("------------------------------------------------");
-            Console.WriteLine("Address book usage:");
-            Console.WriteLine("add    - Add a person to the address book.");
-            Console.WriteLine("remove - Remove a person from the address book.");
+            Console.WriteLine("AgriStore usage:");
+            Console.WriteLine("add    - Add a Animal to the address book.");
+            Console.WriteLine("remove - Remove a Animal from the address book.");
             Console.WriteLine("list   - List all people in address book.");
             Console.WriteLine("exit   - Exit the program.");
             Console.WriteLine("------------------------------------------------");
@@ -79,24 +79,24 @@ namespace AgriStoreLogic
         // Remove element from list
         public static void removeFromList()
         {
-            Console.WriteLine("Enter the name of the person you would like to remove.");
+            Console.WriteLine("Enter the name of the animal you would like to remove.");
             string firstName = Console.ReadLine();
-            Cow person = cowList.FirstOrDefault(x => x.Name.ToLower() == firstName.ToLower());
+            Cow Animal = cowList.FirstOrDefault(x => x.Name.ToLower() == firstName.ToLower());
 
-            if (person == null)
+            if (Animal == null)
             {
-                Console.WriteLine("That person could not be found. Press any key to continue.");
+                Console.WriteLine("That animal could not be found. Press any key to continue.");
                 Console.ReadKey();
                 return;
             }
 
-            Console.WriteLine("Are you sure you want to remove this person from your address book? (Y/N)");
-            ViewElement(person);
+            Console.WriteLine("Are you sure you want to remove this animal from your address book? (Y/N)");
+            ViewElement(Animal);
             
             if (Console.ReadKey().Key == ConsoleKey.Y)
             {
-                cowList.Remove(person);
-                Console.Write("\nPerson removed. Press any key to continue.");
+                cowList.Remove(Animal);
+                Console.Write("\nAnimal removed. Press any key to continue.");
                 Console.ReadKey();
             }
         }
