@@ -16,7 +16,7 @@ namespace AgriStoreLogic
 
             while (userInput != "exit")
             {
-                Console.Write("Enter a command (add, remove, view, save, exit): ");
+                Console.Write("Enter a command (add, remove, view, help, save, exit): ");
                 userInput = Console.ReadLine();
 
                 // Switch for the action to be performed on the list

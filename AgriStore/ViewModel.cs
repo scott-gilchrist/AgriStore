@@ -10,6 +10,7 @@ namespace AgriStoreLogic
 {
     public static class ViewModel
     {
+        private const string JSON = ".json";
         static List<Cow> cowList = new List<Cow>();
 
         //Help menu
@@ -20,7 +21,7 @@ namespace AgriStoreLogic
             Console.WriteLine("AgriStore usage:");
             Console.WriteLine("add    - Add a Animal to the address book.");
             Console.WriteLine("remove - Remove a Animal from the address book.");
-            Console.WriteLine("list   - List all people in address book.");
+            Console.WriteLine("view   - List all people in address book.");
             Console.WriteLine("exit   - Exit the program.");
             Console.WriteLine("------------------------------------------------");
 
@@ -103,7 +104,21 @@ namespace AgriStoreLogic
 
         public static void saveList()
         {
-            using (StreamWriter file = File.CreateText(@"agristore.txt"))
+           //Create folder in AppData
+           string folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+           string ourDirectory = Path.Combine(folder, "AgriStore");
+           Directory.CreateDirectory(ourDirectory);
+            
+
+
+            // User input for the name of the file to save
+            Console.Write("Enter the name of the file to save: ");
+            string fileName = Console.ReadLine() + JSON;
+
+
+
+            // Serialize data
+            using (StreamWriter file = File.CreateText($"{ourDirectory}\\{fileName}"))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 // Serialize object directly into file stream
