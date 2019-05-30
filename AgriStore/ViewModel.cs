@@ -13,8 +13,8 @@ namespace AgriStoreLogic
         private const string JSON = ".json";
         static List<Cow> cowList = new List<Cow>();
 
-        //Help menu
-        //Help menu method
+        // Help menu
+        // Help menu method
         public static void HelpMenu()
         {
             Console.WriteLine("------------------------------------------------");
@@ -22,6 +22,7 @@ namespace AgriStoreLogic
             Console.WriteLine("add    - Add a Animal to the address book.");
             Console.WriteLine("remove - Remove a Animal from the address book.");
             Console.WriteLine("view   - List all people in address book.");
+            Console.WriteLine("open   - Open a database file.");
             Console.WriteLine("exit   - Exit the program.");
             Console.WriteLine("------------------------------------------------");
 
@@ -93,7 +94,7 @@ namespace AgriStoreLogic
 
             Console.WriteLine("Are you sure you want to remove this animal from your address book? (Y/N)");
             ViewElement(Animal);
-            
+
             if (Console.ReadKey().Key == ConsoleKey.Y)
             {
                 cowList.Remove(Animal);
@@ -104,18 +105,22 @@ namespace AgriStoreLogic
 
         public static void saveList()
         {
-           //Create folder in AppData
-           string folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-           string ourDirectory = Path.Combine(folder, "AgriStore");
-           Directory.CreateDirectory(ourDirectory);
-            
-
+            // Create folder in AppData
+            string folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string ourDirectory = Path.Combine(folder, "AgriStore");
+            // Create folder if it doesn't already exist, otherwise skip
+            if (!Directory.Exists(ourDirectory))
+            {
+                Directory.CreateDirectory(ourDirectory);
+            }
+            else
+            {
+                Console.WriteLine("Directory already exists, skipping step.");
+            }
 
             // User input for the name of the file to save
             Console.Write("Enter the name of the file to save: ");
             string fileName = Console.ReadLine() + JSON;
-
-
 
             // Serialize data
             using (StreamWriter file = File.CreateText($"{ourDirectory}\\{fileName}"))
@@ -124,6 +129,13 @@ namespace AgriStoreLogic
                 // Serialize object directly into file stream
                 serializer.Serialize(file, cowList);
             }
+        }
+
+        public static void openDatabase()
+        {
+            // Read JSON file into list 
+            string inputData = File.ReadAllText(@"C:\Users\scott.gilchrist\AppData\Roaming\AgriStore\output.json");
+            cowList = JsonConvert.DeserializeObject<List<Cow>>(inputData);
         }
 
     }
